@@ -1,29 +1,60 @@
+/* ==========================================================================
+   1. HỆ THỐNG BIẾN (VARIABLES) - MEDICAL TECH THEME
+   ========================================================================== */
 :root {
-  /* Tông màu Y tế & Công nghệ (Medical Tech Palette) */
-  --primary-color: #0ea5e9; /* Xanh lam sáng */
+  /* Tông màu chủ đạo */
+  --primary-color: #0ea5e9; /* Sky Blue */
   --primary-gradient: linear-gradient(135deg, #38bdf8 0%, #0284c7 100%);
   --medical-teal: linear-gradient(135deg, #2dd4bf 0%, #0d9488 100%);
-  --medical-green: linear-gradient(135deg, #34d399 0%, #059669 100%);
-  --medical-purple: linear-gradient(135deg, #a78bfa 0%, #7c3aed 100%);
+  --medical-purple: linear-gradient(135deg, #a855f7 0%, #7e22ce 100%);
 
-  --glass-bg: rgba(30, 41, 59, 0.65);
-  --glass-border: rgba(255, 255, 255, 0.12);
-  --glass-shadow: 0 8px 24px 0 rgba(0, 0, 0, 0.25);
+  /* Lớp vỏ bên ngoài (Dark Mode) */
+  --bg-dark: #0f172a; /* Nền tổng thể */
+  --bg-sidebar: #0b1120; /* Nền menu trái (đậm hơn nền tổng thể) */
+  --bg-card: #1e293b; /* Nền thẻ tĩnh */
+  --glass-bg: rgba(30, 41, 59, 0.6);
+  --glass-border: rgba(255, 255, 255, 0.08);
+  --glass-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
 
-  --bg-dark: #0f172a;
-  --bg-card: #1e293b;
+  /* Chữ lớp vỏ ngoài */
   --text-main: #f8fafc;
-  --text-muted: #cbd5e1;
+  --text-muted: #94a3b8;
+
+  /* Bảng màu nội dung bên trong Dashboard (Light Mode) */
+  --dash-bg: #f8fafc;
+  --dash-card: #ffffff;
+  --dash-border: #e2e8f0;
+  --dash-text-dark: #0f172a;
+  --dash-text-muted: #475569;
 }
 
-/* ĐẶT LẠI KÍCH THƯỚC GỐC: Thu nhỏ 6% toàn bộ text trên web */
+/* ==========================================================================
+   2. RESET & CƠ BẢN (BASE)
+   ========================================================================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", "Segoe UI", sans-serif;
+}
+
 html {
   font-size: 15px;
-  scroll-behavior: smooth; /* Thêm hiệu ứng cuộn mượt */
+  scroll-behavior: smooth;
 }
 
+body {
+  background-color: var(--bg-dark);
+  color: var(--text-main);
+  display: flex;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* Tùy chỉnh thanh cuộn toàn cầu */
 ::-webkit-scrollbar {
-  width: 6px; /* Làm thanh cuộn mỏng và tinh tế hơn */
+  width: 6px;
+  height: 6px;
 }
 ::-webkit-scrollbar-track {
   background: var(--bg-dark);
@@ -36,76 +67,83 @@ html {
   background: var(--primary-color);
 }
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: "Poppins", sans-serif;
+/* Class tiện ích */
+.d-none {
+  display: none !important;
+}
+.fade-in {
+  animation: fadeIn 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-body {
-  background-color: var(--bg-dark);
-  color: var(--text-main);
-  display: flex;
-  min-height: 100vh;
-}
-
-/* --- SIDEBAR --- */
+/* ==========================================================================
+   3. SIDEBAR (MENU TRÁI NGOÀI CÙNG)
+   ========================================================================== */
 .sidebar {
-  width: 250px; /* Thu nhỏ sidebar từ 280px xuống 250px */
-  background-color: rgba(15, 23, 42, 0.95);
+  width: 260px;
+  background-color: var(--bg-sidebar);
   border-right: 1px solid var(--glass-border);
-  padding: 25px 20px;
+  padding: 30px 20px;
   position: fixed;
   height: 100vh;
   overflow-y: auto;
-  backdrop-filter: blur(12px);
   z-index: 100;
-  box-shadow: 5px 0 15px rgba(0, 0, 0, 0.15);
+  box-shadow: 4px 0 24px rgba(0, 0, 0, 0.2);
 }
 
 .brand {
   display: flex;
   align-items: center;
-  gap: 10px;
-  margin-bottom: 35px;
+  gap: 12px;
+  margin-bottom: 40px;
   font-weight: 700;
   font-size: 1.1rem;
 }
 
 .brand-icon {
   background: var(--medical-teal);
-  padding: 6px 10px;
-  border-radius: 8px;
-  box-shadow: 0 4px 15px rgba(45, 212, 191, 0.2);
+  padding: 8px 12px;
+  border-radius: 10px;
   color: white;
-  font-size: 0.9rem;
+  font-size: 1rem;
+  box-shadow: 0 4px 15px rgba(45, 212, 191, 0.3);
 }
 
 .nav-menu {
   list-style: none;
+  margin-bottom: 30px;
 }
 .nav-item {
-  margin-bottom: 6px;
+  margin-bottom: 8px;
 }
 
 .nav-link {
   display: flex;
   align-items: center;
   gap: 12px;
-  color: #94a3b8;
+  color: var(--text-muted);
   text-decoration: none;
-  padding: 10px 14px;
+  padding: 12px 16px;
   border-radius: 8px;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.3s ease;
   font-weight: 500;
-  font-size: 0.95rem; /* Text menu gọn hơn */
+  font-size: 0.95rem;
+  border-left: 3px solid transparent;
 }
 
 .nav-link:hover {
   color: var(--text-main);
+  background: rgba(255, 255, 255, 0.03);
   transform: translateX(4px);
-  background: rgba(255, 255, 255, 0.05);
 }
 
 .nav-link.active {
@@ -116,60 +154,31 @@ body {
   );
   color: var(--primary-color);
   border-left: 3px solid var(--primary-color);
-}
-
-/* --- MAIN CONTENT --- */
-.main-content {
-  margin-left: 250px; /* Khớp với sidebar mới */
-  flex: 1;
-  padding: 40px; /* Giảm padding từ 50px xuống 40px */
-  background-image: radial-gradient(
-    circle at top right,
-    rgba(14, 165, 233, 0.05),
-    transparent 60%
-  );
-}
-
-/* Hero Section */
-.hero {
-  text-align: center;
-  padding: 60px 20px; /* Giảm chiều cao banner */
-  background:
-    linear-gradient(rgba(15, 23, 42, 0.85), rgba(15, 23, 42, 0.95)),
-    url("https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?q=80&w=2070")
-      center/cover fixed;
-  border-radius: 20px;
-  margin-bottom: 50px;
-  border: 1px solid var(--glass-border);
-  box-shadow: var(--glass-shadow);
-}
-
-.hero h2 {
-  font-size: 0.95rem;
-  color: var(--primary-color);
-  letter-spacing: 2px;
-  margin-bottom: 10px;
   font-weight: 600;
 }
 
-.hero h1 {
-  font-size: 2.8rem; /* Giảm mạnh từ 3.8rem xuống 2.8rem */
-  font-weight: 700;
-  background: var(--text-main);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  margin-bottom: 5px;
-  text-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+/* ==========================================================================
+   4. BỐ CỤC CHÍNH (MAIN CONTENT) & COMPONENT DÙNG CHUNG
+   ========================================================================== */
+.main-content {
+  margin-left: 260px;
+  flex: 1;
+  padding: 50px 60px;
+  background-image: radial-gradient(
+    circle at top right,
+    rgba(14, 165, 233, 0.05),
+    transparent 50%
+  );
 }
 
+/* Các tiêu đề (Headings) */
 .section-title {
   text-align: center;
-  font-size: 1.6rem; /* Giảm từ 2rem xuống 1.6rem */
+  font-size: 1.6rem;
   margin-bottom: 40px;
   text-transform: uppercase;
   letter-spacing: 2px;
   font-weight: 700;
-  position: relative;
 }
 
 .section-title::after {
@@ -182,12 +191,35 @@ body {
   border-radius: 2px;
 }
 
-/* Cards General */
+.section-header-centered {
+  text-align: center;
+  margin-bottom: 35px;
+  margin-top: 15px;
+}
+.section-title-new {
+  font-size: 1.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  background: var(--primary-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
+  margin-bottom: 12px;
+}
+.section-subtitle {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  line-height: 1.6;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+/* Thẻ (Cards) vỏ ngoài */
 .card {
   background: var(--glass-bg);
   border: 1px solid var(--glass-border);
   border-radius: 16px;
-  padding: 24px; /* Giảm padding thẻ từ 30px xuống 24px */
+  padding: 24px;
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   box-shadow: var(--glass-shadow);
@@ -197,15 +229,134 @@ body {
 }
 
 .card:hover {
-  transform: translateY(-4px);
   border-color: rgba(14, 165, 233, 0.3);
+}
+
+/* Nút bấm (Buttons) */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 24px;
+  border-radius: 10px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.9rem;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.btn-primary {
+  background: var(--primary-gradient);
+  color: white;
+  box-shadow: 0 6px 15px rgba(14, 165, 233, 0.2);
+  margin-bottom: 10px;
+}
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(14, 165, 233, 0.4);
+}
+.btn-outline {
+  background: transparent;
+  border: 1px solid var(--glass-border);
+  color: var(--text-main);
+}
+.btn-outline:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+/* Nút chuyển chế độ (Gallery/Dashboard) */
+.view-mode-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 35px;
+}
+.view-mode-toggle {
+  display: inline-flex;
+  background: rgba(15, 23, 42, 0.5);
+  border: 1px solid var(--glass-border);
+  border-radius: 10px;
+  padding: 4px;
+  gap: 4px;
+}
+.mode-btn {
+  padding: 10px 20px;
+  border-radius: 8px;
+  color: var(--text-muted);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.mode-btn:hover {
+  color: var(--text-main);
+  background: rgba(255, 255, 255, 0.05);
+}
+.mode-btn.active {
+  background: #6366f1;
+  color: #ffffff;
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.25);
+}
+
+/* ==========================================================================
+   5. CÁC SECTION CỤ THỂ BÊN NGOÀI
+   ========================================================================== */
+/* Hero */
+.hero {
+  text-align: center;
+  padding: 60px 20px;
+  background:
+    linear-gradient(rgba(15, 23, 42, 0.85), rgba(15, 23, 42, 0.95)),
+    url("https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?q=80&w=2070")
+      center/cover;
+  border-radius: 20px;
+  margin-bottom: 50px;
+  border: 1px solid var(--glass-border);
+}
+.hero h2 {
+  font-size: 0.95rem;
+  color: var(--primary-color);
+  letter-spacing: 2px;
+  margin-bottom: 10px;
+  font-weight: 600;
+}
+.hero h1 {
+  font-size: 2.8rem;
+  font-weight: 700;
+  background: var(--text-main);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 10px;
+}
+
+/* Grid Lời Mở Đầu */
+.intro-grid {
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  gap: 30px;
+  margin-bottom: 60px;
+}
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 25px;
+  margin-bottom: 60px;
+}
+.about-left,
+.about-right {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 
 /* Profile Card */
 .profile-card {
   text-align: center;
 }
-
 .profile-header {
   background: var(--primary-gradient);
   padding: 10px;
@@ -215,9 +366,8 @@ body {
   font-size: 0.9rem;
   letter-spacing: 1px;
 }
-
 .profile-img {
-  width: 110px; /* Thu nhỏ avatar */
+  width: 110px;
   height: 110px;
   border-radius: 50%;
   border: 3px solid var(--bg-card);
@@ -225,9 +375,7 @@ body {
   outline-offset: 3px;
   margin-bottom: 15px;
   object-fit: cover;
-  box-shadow: 0 8px 20px rgba(14, 165, 233, 0.2);
 }
-
 .stats-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -236,7 +384,6 @@ body {
   padding-top: 20px;
   border-top: 1px solid var(--glass-border);
 }
-
 .stat-box h4 {
   font-size: 1.2rem;
   font-weight: 700;
@@ -249,78 +396,13 @@ body {
   margin-top: 3px;
 }
 
-/* Buttons */
-.btn {
-  display: inline-block;
-  width: 100%;
-  padding: 12px;
-  border-radius: 10px;
-  text-decoration: none;
-  font-weight: 600;
-  font-size: 0.9rem;
-  margin-bottom: 12px;
-  text-align: center;
-  border: none;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.btn-primary {
-  background: var(--primary-gradient);
-  color: white;
-  box-shadow: 0 6px 15px rgba(14, 165, 233, 0.2);
-}
-
-.btn-primary:hover {
-  box-shadow: 0 8px 20px rgba(14, 165, 233, 0.35);
-  transform: translateY(-2px);
-}
-
-.btn-outline {
-  background: rgba(255, 255, 255, 0.02);
-  border: 1px solid var(--glass-border);
-  color: var(--text-main);
-}
-
-.btn-outline:hover {
-  background: rgba(255, 255, 255, 0.08);
-  transform: translateY(-2px);
-}
-
-/* Grid Layouts */
-.intro-grid {
-  display: grid;
-  grid-template-columns: 320px 1fr; /* Thu nhỏ cột profile */
-  gap: 30px;
-  margin-bottom: 60px;
-}
-
-.about-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 25px;
-  margin-bottom: 60px;
-}
-
-.about-left,
-.about-right {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-
-/* About Text */
+/* Intro Texts & Info Cards */
 .intro-text-card p {
-  font-size: 0.95rem; /* Text nhỏ lại */
+  font-size: 0.95rem;
   line-height: 1.7;
   color: var(--text-muted);
   margin-bottom: 12px;
 }
-.intro-text-card strong {
-  color: var(--primary-color);
-  font-weight: 600;
-}
-
 .goal-card {
   background: linear-gradient(
     145deg,
@@ -328,7 +410,6 @@ body {
     rgba(30, 41, 59, 0.9)
   );
   border-left: 3px solid var(--primary-color);
-  padding: 20px;
 }
 .goal-title {
   color: #7dd3fc;
@@ -338,13 +419,6 @@ body {
   margin-bottom: 10px;
   font-weight: 700;
 }
-.goal-card p {
-  color: var(--text-main);
-  font-size: 0.9rem;
-  line-height: 1.6;
-}
-
-/* Info Cards */
 .info-card {
   padding: 20px;
 }
@@ -359,7 +433,6 @@ body {
   font-size: 1rem;
   font-weight: 600;
 }
-
 .icon-box {
   width: 36px;
   height: 36px;
@@ -370,239 +443,110 @@ body {
   font-size: 1rem;
 }
 
-/* Checklist Section */
-.checklist-header-main {
+/* TOC & Video */
+.toc-tags {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-bottom: 1px solid var(--glass-border);
-  padding-bottom: 20px;
-  margin-bottom: 20px;
+  flex-wrap: wrap;
+  gap: 10px;
 }
-
-.checklist-title-group {
-  display: flex;
-  gap: 12px;
-  align-items: center;
-}
-
-.btn-save {
-  background: #f1f5f9;
-  color: #0f172a;
-  padding: 8px 16px;
+.toc-tag {
+  background: rgba(14, 165, 233, 0.15);
+  color: #38bdf8;
+  padding: 8px 14px;
   border-radius: 6px;
-  font-weight: 600;
   font-size: 0.85rem;
-  border: none;
-  cursor: pointer;
-  transition: 0.3s;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.3s;
 }
-.btn-save:hover {
-  background: #cbd5e1;
+.toc-tag:hover {
+  background: var(--primary-color);
+  color: #fff;
   transform: translateY(-2px);
 }
-
-.checklist-content {
-  border: 1px solid var(--glass-border);
+.video-container {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: #000;
   border-radius: 12px;
-  background: rgba(15, 23, 42, 0.5);
   overflow: hidden;
+  border: 1px solid var(--glass-border);
 }
 
-.checklist-accordion-header {
-  padding: 20px;
-  border-bottom: 1px solid var(--glass-border);
-  background: rgba(255, 255, 255, 0.02);
+/* Rubric Card */
+.rubric-card {
+  background: #111827;
 }
-
-.accordion-top {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin-bottom: 8px;
-}
-.number-badge {
-  width: 28px;
-  height: 28px;
-  background: var(--primary-gradient);
-  color: white;
-  border-radius: 6px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 700;
-  font-size: 0.9rem;
-}
-
-.score-badge {
-  background: rgba(16, 185, 129, 0.15);
-  color: #10b981;
-  padding: 3px 10px;
-  border-radius: 20px;
-  font-size: 0.7rem;
-  font-weight: 700;
-}
-.ml-auto {
-  margin-left: auto;
-  color: var(--text-muted);
-  cursor: pointer;
-}
-.accordion-sub {
-  padding-left: 40px;
-}
-
-.check-item {
-  display: flex;
-  align-items: flex-start;
-  padding: 20px;
-  border-bottom: 1px solid var(--glass-border);
-  cursor: pointer;
-  gap: 15px;
-  transition: 0.2s;
-}
-.check-item:hover {
-  background: rgba(255, 255, 255, 0.03);
-}
-.check-item:last-child {
-  border-bottom: none;
-}
-
-.custom-checkbox {
-  width: 18px;
-  height: 18px;
-  margin-top: 4px;
-  accent-color: var(--primary-color);
-  cursor: pointer;
-  flex-shrink: 0;
-}
-.check-text {
-  line-height: 1.5;
-  font-size: 0.95rem;
-  color: var(--text-muted);
-}
-.check-text strong {
-  color: var(--text-main);
-  font-weight: 600;
-}
-.checklist-footer {
-  margin-top: 20px;
-  font-size: 0.8rem;
-  color: #64748b;
-  font-style: italic;
-}
-
-/* Rubric Section */
-.section-header-centered {
-  text-align: center;
-  margin-bottom: 35px;
-  margin-top: 15px;
-}
-.section-title-new {
-  font-size: 1.8rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  background: var(--primary-gradient);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  margin-bottom: 12px;
-  position: relative;
-  display: inline-block;
-}
-.section-title-new::after {
-  content: "";
-  position: absolute;
-  bottom: -6px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 50px;
-  height: 3px;
-  background: var(--primary-gradient);
-  border-radius: 2px;
-}
-.section-subtitle {
-  color: var(--text-muted);
-  font-size: 0.9rem;
-  line-height: 1.5;
-  max-width: 700px;
-  margin: 12px auto 0 auto;
-}
-
 .rubric-header {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 15px;
   margin-bottom: 25px;
 }
 .rubric-icon {
   color: #2dd4bf;
-  font-size: 1.5rem;
+  font-size: 1.8rem;
 }
-.rubric-header h3 {
-  font-size: 1.1rem;
-  font-weight: 700;
-  margin-bottom: 4px;
-}
-.rubric-header p {
-  color: var(--text-muted);
-  font-size: 0.8rem;
-}
-
 .rubric-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 10px 15px;
+  gap: 12px 20px;
   margin-bottom: 20px;
 }
 .rubric-item {
-  background: rgba(15, 23, 42, 0.4);
-  border-radius: 8px;
-  padding: 10px 14px;
+  background: rgba(30, 41, 59, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
+  padding: 12px 18px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border: 1px solid rgba(255, 255, 255, 0.02);
   transition: 0.3s;
 }
 .rubric-item:hover {
-  background: rgba(30, 41, 59, 0.8);
-  border-color: rgba(14, 165, 233, 0.2);
+  background: rgba(30, 41, 59, 0.9);
+  border-color: rgba(14, 165, 233, 0.3);
+  transform: translateY(-2px);
 }
 .rubric-item-left {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 15px;
 }
 .rubric-number {
-  background: rgba(255, 255, 255, 0.08);
-  width: 24px;
-  height: 24px;
+  background: rgba(255, 255, 255, 0.1);
+  width: 28px;
+  height: 28px;
   display: flex;
-  align-items: center;
   justify-content: center;
-  border-radius: 4px;
+  align-items: center;
+  border-radius: 6px;
   font-weight: 600;
-  font-size: 0.8rem;
+  font-size: 0.85rem;
+  color: #fff;
 }
 .rubric-label {
   font-weight: 600;
-  font-size: 0.9rem;
+  font-size: 0.95rem;
+  color: #e2e8f0;
 }
 .rubric-score {
-  font-weight: 700;
-  font-size: 0.9rem;
-  color: var(--primary-color);
+  font-weight: 800;
+  font-size: 0.95rem;
+  color: #38bdf8;
 }
 .rubric-footer {
   border-top: 1px solid var(--glass-border);
   padding-top: 12px;
   color: #64748b;
   font-size: 0.8rem;
+  font-style: italic;
 }
 
-/* Exercises Grid */
+/* Exercises Gallery Mode */
 .exercises-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 25px;
 }
 .ex-card {
@@ -610,18 +554,18 @@ body {
   border-radius: 14px;
   overflow: hidden;
   border: 1px solid var(--glass-border);
-  transition: all 0.4s;
+  transition: 0.4s;
 }
 .ex-card:hover {
   transform: translateY(-6px);
   border-color: var(--primary-color);
-  box-shadow: 0 12px 25px rgba(14, 165, 233, 0.12);
+  box-shadow: 0 12px 25px rgba(14, 165, 233, 0.15);
 }
 .ex-img {
   width: 100%;
-  height: 170px;
+  height: 180px;
   object-fit: cover;
-  transition: transform 0.5s;
+  transition: 0.5s;
   border-bottom: 1px solid var(--glass-border);
 }
 .ex-card:hover .ex-img {
@@ -629,27 +573,13 @@ body {
 }
 .ex-content {
   padding: 20px;
-  background: var(--glass-bg);
   position: relative;
   z-index: 2;
-}
-.tags {
-  display: flex;
-  gap: 6px;
-  margin: 10px 0;
-  flex-wrap: wrap;
-}
-.tag {
-  background: rgba(14, 165, 233, 0.12);
-  color: #38bdf8;
-  padding: 4px 10px;
-  border-radius: 4px;
-  font-size: 0.7rem;
-  font-weight: 600;
+  background: var(--bg-card);
 }
 .ex-title {
-  font-size: 1.05rem;
-  margin-bottom: 10px;
+  font-size: 1.1rem;
+  margin: 10px 0;
   line-height: 1.4;
   font-weight: 600;
 }
@@ -670,87 +600,55 @@ body {
   text-decoration: none;
   font-size: 0.85rem;
   font-weight: 500;
+  transition: 0.3s;
   display: flex;
   align-items: center;
   gap: 6px;
-  transition: 0.3s;
 }
 .card-actions a:hover {
   color: var(--primary-color);
 }
 
-/* Video Container */
-.video-container {
-  width: 100%;
-  aspect-ratio: 16 / 9;
-  background: #000;
-  border-radius: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 20px;
-  border: 1px solid var(--glass-border);
-  overflow: hidden;
-  position: relative;
-}
-
-/* --- VIEW MODE TOGGLE --- */
-.view-mode-wrapper {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 35px;
-}
-.view-mode-toggle {
-  display: inline-flex;
-  background: rgba(15, 23, 42, 0.5);
-  border: 1px solid var(--glass-border);
-  border-radius: 10px;
-  padding: 4px;
-  gap: 4px;
-}
-.mode-btn {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 10px 20px;
-  border-radius: 8px;
-  color: var(--text-muted);
-  text-decoration: none;
-  font-weight: 600;
-  font-size: 0.9rem;
-  transition: all 0.3s ease;
-}
-.mode-btn:hover {
-  color: var(--text-main);
-  background: rgba(255, 255, 255, 0.05);
-}
-.mode-btn.active {
-  background: #5542f6;
-  color: #ffffff;
-  box-shadow: 0 4px 12px rgba(85, 66, 246, 0.25);
-}
-
-/* --- DASHBOARD VIEW (CHẾ ĐỘ BẢNG) --- */
+/* ==========================================================================
+   6. DASHBOARD MÀN HÌNH SÁNG (LIGHT MODE APP)
+   ========================================================================== */
 .dashboard-layout {
   display: flex;
-  background: #ffffff;
-  border-radius: 16px;
+  background: var(--dash-bg);
+  border-radius: 20px;
   overflow: hidden;
-  min-height: 550px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  height: 85vh;
+  min-height: 650px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+  border: 1px solid var(--glass-border);
 }
+
+/* Sidebar bên trong */
 .dash-sidebar {
-  width: 240px;
-  background: #b5b9c4;
-  padding: 25px 15px;
-  border-right: 1px solid #cbd5e1;
+  width: 280px;
+  background: #ffffff;
+  padding: 30px 20px;
+  border-right: 1px solid var(--dash-border);
+  overflow-y: auto;
 }
+.dash-sidebar::-webkit-scrollbar {
+  width: 4px;
+}
+.dash-sidebar::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+}
+
+.checklist-title-group {
+  display: flex;
+  gap: 10px;
+}
+
 .dash-sidebar-title {
-  color: #334155;
-  font-size: 0.85rem;
+  color: #64748b;
+  font-size: 0.8rem;
   font-weight: 700;
-  margin-bottom: 15px;
-  padding-left: 10px;
+  margin-bottom: 20px;
+  letter-spacing: 1px;
 }
 .dash-lesson-list {
   list-style: none;
@@ -758,140 +656,379 @@ body {
 .dash-lesson-list li {
   display: flex;
   align-items: center;
-  padding: 10px 14px;
+  padding: 14px 18px;
   background: #f1f5f9;
-  margin-bottom: 8px;
-  border-radius: 10px;
-  color: #475569;
+  margin-bottom: 10px;
+  border-radius: 12px;
+  color: #334155;
   font-weight: 600;
-  font-size: 0.9rem;
+  font-size: 0.95rem;
   cursor: pointer;
-  transition: 0.3s;
+  transition: 0.2s;
+  border: 1px solid transparent;
 }
 .dash-lesson-list li:hover {
+  background: #e2e8f0;
   transform: translateY(-2px);
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
-}
-.dash-lesson-list li.active {
-  background: #5542f6;
-  color: #ffffff;
 }
 .num-circle {
-  width: 22px;
-  height: 22px;
-  background: #fff;
+  width: 26px;
+  height: 26px;
+  background: #ffffff;
   color: #475569;
   border-radius: 50%;
   display: flex;
-  align-items: center;
   justify-content: center;
-  font-size: 0.75rem;
-  margin-right: 10px;
-  font-weight: 700;
-}
-.dash-lesson-list li.active .num-circle {
-  color: #5542f6;
+  align-items: center;
+  font-size: 0.8rem;
+  margin-right: 12px;
+  font-weight: 800;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
 }
 
+/* Màu thẻ Active chuẩn Video (Màu Tím Xanh) */
+.dash-lesson-list li.active {
+  background: #6366f1;
+  color: #ffffff;
+  box-shadow: 0 6px 15px rgba(99, 102, 241, 0.3);
+  border-color: #6366f1;
+}
+.dash-lesson-list li.active .num-circle {
+  color: #6366f1;
+  background: #ffffff;
+}
+
+/* Nội dung chính Dashboard */
 .dash-content {
   flex: 1;
-  padding: 30px;
-  background: #ffffff;
-  color: #0f172a;
+  padding: 40px 50px;
+  background: var(--dash-bg);
+  color: var(--dash-text-dark);
+  overflow-y: auto;
+  scroll-behavior: smooth;
 }
-.dash-header-top {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  margin-bottom: 15px;
-  border-bottom: 1px solid #e2e8f0;
-  padding-bottom: 15px;
+.dash-content::-webkit-scrollbar {
+  width: 8px;
 }
+.dash-content::-webkit-scrollbar-track {
+  background: transparent;
+}
+.dash-content::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 10px;
+}
+.dash-content::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+.dash-main-title {
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: var(--dash-text-dark);
+  line-height: 1.3;
+  margin-bottom: 25px;
+}
+
+/* Thẻ Tag Phân Loại Đẹp */
 .dash-tags {
   display: flex;
   gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
 }
 .d-tag {
-  font-size: 0.65rem;
-  font-weight: 700;
-  padding: 3px 8px;
-  border-radius: 12px;
-}
-.d-tag-blue {
-  background: #eff6ff;
-  color: #3b82f6;
-}
-.d-tag-green {
-  background: #ecfdf5;
-  color: #10b981;
-}
-.d-tag-gray {
-  background: #f1f5f9;
-  color: #64748b;
-}
-.dash-main-title {
-  font-size: 1.6rem;
-  font-weight: 700;
-  color: #1e293b;
-  line-height: 1.4;
-}
-
-/* Widget Cuộn */
-.auto-scroll-widget {
-  background: #ffffff;
-  border: 1px solid #cbd5e1;
-  border-radius: 10px;
-  padding: 8px 12px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
-}
-.scroll-top {
-  display: flex;
-  align-items: center;
-  gap: 8px;
   font-size: 0.75rem;
   font-weight: 700;
+  padding: 6px 12px;
+  border-radius: 8px;
+  letter-spacing: 0.5px;
+}
+.d-tag-blue {
+  background: #dbeafe;
+  color: #2563eb;
+}
+.d-tag-green {
+  background: #d1fae5;
+  color: #059669;
+}
+.d-tag-purple {
+  background: #f3e8ff;
+  color: #9333ea;
+}
+.d-tag-orange {
+  background: #fef3c7;
+  color: #d97706;
+}
+.d-tag-emerald {
+  background: #ecfdf5;
+  color: #059669;
+}
+.d-tag-indigo {
+  background: #e0e7ff;
+  color: #4f46e5;
+}
+.d-tag-teal {
+  background: #ccfbf1;
+  color: #0d9488;
+}
+.d-tag-red {
+  background: #fee2e2;
+  color: #dc2626;
+}
+.d-tag-gray {
+  background: var(--dash-border);
   color: #475569;
-  margin-bottom: 8px;
-}
-.scroll-top i {
-  color: #5542f6;
-}
-.speed-badge {
-  background: #eff6ff;
-  color: #5542f6;
-  padding: 2px 4px;
-  border-radius: 4px;
-  margin-left: auto;
-}
-.scroll-slider {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  color: #94a3b8;
-  font-weight: bold;
-  margin-bottom: 6px;
-}
-.slider-bar {
-  width: 100px;
-  accent-color: #5542f6;
-}
-.scroll-speeds {
-  display: flex;
-  justify-content: space-between;
-  font-size: 0.65rem;
-  color: #64748b;
-  font-weight: 600;
-}
-.scroll-speeds span.active {
-  background: #5542f6;
-  color: #fff;
-  padding: 2px 4px;
-  border-radius: 4px;
 }
 
-/* ========================================= */
-/* --- PHẦN TỔNG KẾT & SUY NGẪM --- */
-/* ========================================= */
+/* Widget Cuộn Nội Dung */
+.auto-scroll-widget {
+  background: #ffffff;
+  border: 1px solid var(--dash-border);
+  border-radius: 12px;
+  padding: 12px 18px;
+  min-width: 200px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.02);
+}
+.scroll-header {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #475569;
+  margin-bottom: 10px;
+}
+#scroll-slider {
+  width: 100%;
+  accent-color: #6366f1;
+  cursor: pointer;
+}
+
+/* Bảng Rubric Checklist (Light Mode) */
+.checklist-card {
+  background: #ffffff !important; /* Ép nền trắng tĩnh */
+  border: 1px solid #e2e8f0 !important;
+  border-radius: 16px !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15) !important; /* Bóng đổ nổi bật trên nền đen */
+  margin-bottom: 30px;
+  overflow: hidden;
+}
+.checklist-header-main,
+.checklist-accordion-header {
+  background: #f8fafc !important; /* Nền xám siêu nhạt để phân biệt với thân thẻ */
+  border-bottom: 1px solid #e2e8f0 !important;
+  padding: 20px 25px !important;
+}
+
+.checklist-card h3,
+.checklist-card h4 {
+  color: #0f172a !important; /* Tiêu đề màu Xanh đen đậm, sắc nét */
+  font-weight: 700 !important;
+}
+
+.checklist-card p,
+.accordion-sub p {
+  color: #475569 !important; /* Phụ đề màu Xám Slate dễ đọc */
+}
+
+.checklist-card .icon-box {
+  background: #eef2ff !important; /* Nền icon xanh nhạt */
+  color: #4f46e5 !important; /* Icon xanh Tím đậm */
+  box-shadow: none !important;
+}
+
+.accordion-top {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+.number-badge {
+  width: 28px;
+  height: 28px;
+  background: var(--primary-gradient);
+  color: white;
+  border-radius: 6px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+.score-badge {
+  background: #d1fae5;
+  color: #059669;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 0.7rem;
+  font-weight: 700;
+}
+.check-item {
+  display: flex;
+  padding: 18px 25px !important;
+  border-bottom: 1px solid #f1f5f9 !important;
+  cursor: pointer;
+  transition: background 0.2s;
+  align-items: flex-start;
+  gap: 15px;
+  background: #ffffff !important;
+}
+.check-item:hover {
+  background: #f8fafc !important; /* Nổi nền nhẹ khi đưa chuột qua */
+}
+.check-item:last-child {
+  border-bottom: none !important;
+}
+.custom-checkbox {
+  width: 20px;
+  height: 20px;
+  accent-color: #6366f1 !important; /* Đổi màu tick xanh/tím hiện đại */
+  margin-top: 3px;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+.check-text {
+  font-size: 0.95rem;
+  color: #334155 !important; /* Chữ thường màu xám đậm */
+  line-height: 1.6;
+}
+
+.check-text strong {
+  color: #0f172a !important; /* Chữ in đậm màu đen rõ ràng */
+}
+
+.checklist-footer {
+  background: #ffffff !important;
+  padding: 15px 25px !important;
+  border-top: 1px solid #f1f5f9 !important;
+  font-size: 0.85rem;
+  color: #64748b !important;
+  font-style: italic;
+}
+
+/* Step Cards (Bài 1) & Bảng Biểu (Bài 2, 4) */
+.step-card {
+  background: #ffffff;
+  border: 1px solid var(--dash-border);
+  border-radius: 16px;
+  padding: 25px;
+  margin-bottom: 25px;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.03);
+}
+.step-header {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 15px;
+}
+.step-number {
+  width: 36px;
+  height: 36px;
+  background: var(--primary-color);
+  color: white;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 800;
+  font-size: 1.1rem;
+}
+.step-title {
+  font-weight: 700;
+  font-size: 1.2rem;
+  color: var(--dash-text-dark);
+}
+.step-img-container {
+  text-align: center;
+  background: #f8fafc;
+  padding: 15px;
+  border-radius: 12px;
+  margin-top: 15px;
+  border: 1px solid var(--dash-border);
+}
+.step-img-container img {
+  max-width: 100%;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s;
+}
+.step-img-container img:hover {
+  transform: scale(1.02);
+}
+
+.lesson-content table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03);
+  margin-bottom: 25px;
+  border: 1px solid var(--dash-border);
+}
+.lesson-content th {
+  background: #f1f5f9;
+  padding: 15px;
+  font-weight: 700;
+  color: #1e293b;
+  text-align: left;
+}
+.lesson-content td {
+  background: #ffffff;
+  padding: 15px;
+  color: #475569;
+  border-top: 1px solid var(--dash-border);
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+/* Mục lục ẩn hiện (Details ToC) */
+details.toc-box {
+  background: #ffffff;
+  border: 1px solid var(--dash-border);
+  border-radius: 12px;
+  padding: 20px;
+  margin: 25px 0;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.02);
+}
+details.toc-box summary {
+  font-weight: 700;
+  cursor: pointer;
+  color: #1e293b;
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+details.toc-box summary::-webkit-details-marker {
+  display: none;
+}
+.toc-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 12px;
+  margin-top: 20px;
+  font-size: 0.95rem;
+  color: #475569;
+  padding-top: 20px;
+  border-top: 1px solid var(--dash-border);
+}
+
+/* Các Card Chung Bổ Sung Trong Dashboard */
+.lesson-content .card {
+  background: #ffffff;
+  border: 1px solid var(--dash-border);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+  color: #334155;
+}
+.lesson-content .card h4 {
+  color: #0f172a;
+  margin-bottom: 10px;
+  font-size: 1.1rem;
+}
+
+/* ==========================================================================
+   7. KHU VỰC TỔNG KẾT & FOOTER
+   ========================================================================== */
 .reflection-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -911,23 +1048,15 @@ body {
   border-bottom: 1px solid var(--glass-border);
   font-weight: 700;
 }
-.deep-dive-card p {
-  line-height: 1.6;
-  font-size: 0.9rem;
-  color: var(--text-muted);
-}
-.deep-dive-card strong {
-  color: var(--text-main);
-  font-weight: 600;
-}
 .inline-code {
   background: rgba(14, 165, 233, 0.15);
   color: #38bdf8;
-  padding: 2px 4px;
+  padding: 2px 6px;
   border-radius: 4px;
   font-family: Consolas, monospace;
-  font-size: 0.8rem;
+  font-size: 0.85rem;
 }
+
 .cta-footer-card {
   text-align: center;
   padding: 35px 25px;
@@ -941,22 +1070,13 @@ body {
   letter-spacing: 1px;
   margin-bottom: 12px;
 }
-.cta-desc {
-  color: var(--text-main);
-  font-size: 0.9rem;
-  line-height: 1.5;
-  max-width: 650px;
-  margin: 0 auto 25px auto;
-}
 .cta-buttons {
   display: flex;
   justify-content: center;
   gap: 15px;
+  margin-top: 20px;
 }
 
-/* ========================================= */
-/* --- FOOTER (CHÂN TRANG) --- */
-/* ========================================= */
 .site-footer {
   text-align: center;
   padding: 40px 20px 20px;
@@ -967,14 +1087,7 @@ body {
   color: var(--primary-color);
   font-size: 1rem;
   font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 1.5px;
-  margin-bottom: 10px;
-}
-.footer-subtitle {
-  color: var(--text-main);
-  font-size: 0.9rem;
-  font-weight: 500;
+  letter-spacing: 1px;
   margin-bottom: 10px;
 }
 .footer-contact {
@@ -983,123 +1096,266 @@ body {
   margin-bottom: 25px;
   display: flex;
   justify-content: center;
-  align-items: center;
+  gap: 10px;
   flex-wrap: wrap;
-  gap: 6px;
 }
 .footer-contact a {
   color: var(--primary-color);
   text-decoration: none;
-  transition: 0.3s ease;
-}
-.footer-contact a:hover {
-  text-decoration: underline;
-  opacity: 0.8;
-}
-.footer-contact .separator {
-  color: #475569;
-  margin: 0 4px;
 }
 .footer-copyright {
   color: #64748b;
-  font-size: 0.75rem;
-  font-weight: 500;
-  max-width: 400px;
-  margin: 0 auto;
-  line-height: 1.5;
+  font-size: 0.8rem;
 }
 
-/* --- CSS CHO MỤC LỤC MINI (MINI-TOC) --- */
-.toc-tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-}
-
-.toc-tag {
-  background: rgba(14, 165, 233, 0.15); /* Màu nền xanh dương nhạt */
-  color: #38bdf8; /* Chữ màu xanh sáng */
-  padding: 8px 14px;
-  border-radius: 6px;
-  font-size: 0.85rem;
-  font-weight: 600;
-  text-decoration: none;
-  transition: all 0.3s ease;
-  display: inline-block;
-  border: 1px solid transparent;
-}
-
-.toc-tag:hover {
-  background: rgba(14, 165, 233, 0.25);
-  border-color: #38bdf8;
-  color: #fff;
-  transform: translateY(-2px); /* Hiệu ứng nảy nhẹ khi di chuột */
-}
-
-/* RESPONSIVE */
+/* ==========================================================================
+   8. RESPONSIVE QUERIES (MOBILE & TABLET)
+   ========================================================================== */
 @media (max-width: 1200px) {
   .intro-grid,
   .about-grid {
     grid-template-columns: 1fr;
   }
+  .dashboard-layout {
+    height: 90vh;
+  }
 }
+
 @media (max-width: 1024px) {
   .reflection-grid {
     grid-template-columns: 1fr;
   }
 }
+
 @media (max-width: 992px) {
   .sidebar {
-    width: 220px;
+    width: 80px;
+    padding: 20px 10px;
   }
+  .sidebar .brand div,
+  .sidebar .nav-item span,
+  .sidebar .nav-link {
+    justify-content: center;
+  }
+  .sidebar .brand div,
+  .sidebar .nav-link span {
+    display: none;
+  }
+  .sidebar .nav-link i {
+    font-size: 1.2rem;
+    margin: 0;
+  }
+
   .main-content {
-    margin-left: 220px;
-    padding: 25px;
+    margin-left: 80px;
+    padding: 30px;
   }
+
+  /* Chuyển Dashboard thành cột dọc */
   .dashboard-layout {
     flex-direction: column;
+    height: auto;
+    min-height: 80vh;
   }
   .dash-sidebar {
     width: 100%;
     border-right: none;
-    border-bottom: 1px solid #cbd5e1;
+    border-bottom: 1px solid var(--dash-border);
+    padding: 15px;
   }
-  .dash-header-top {
-    flex-direction: column;
-    gap: 15px;
+  .dash-lesson-list {
+    display: flex;
+    overflow-x: auto;
+    gap: 10px;
+    padding-bottom: 10px;
+  }
+  .dash-lesson-list li {
+    min-width: max-content;
+    margin-bottom: 0;
+  }
+  .dash-sidebar-title {
+    display: none;
   }
 }
+
 @media (max-width: 768px) {
-  .rubric-grid {
+  .hero h1 {
+    font-size: 2.2rem;
+  }
+  .rubric-grid,
+  .toc-grid {
     grid-template-columns: 1fr;
+  }
+  .dash-content {
+    padding: 20px;
   }
   .checklist-header-main {
     flex-direction: column;
     align-items: flex-start;
-    gap: 15px;
-  }
-  .btn-save {
-    width: 100%;
-  }
-  .view-mode-toggle {
-    flex-direction: column;
-    width: 100%;
-  }
-  .mode-btn {
-    justify-content: center;
   }
   .cta-buttons {
     flex-direction: column;
-    gap: 10px;
-  }
-  .cta-buttons .btn {
-    width: 100% !important;
-  }
-  .footer-contact {
-    flex-direction: column;
-    gap: 8px;
   }
   .footer-contact .separator {
     display: none;
   }
+  .footer-contact {
+    flex-direction: column;
+  }
+}
+.dashboard-layout {
+  background: #0f172a !important; /* Xanh đen */
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+}
+
+.dash-content {
+  background: #0f172a !important;
+  color: #cbd5e1 !important;
+  padding: 30px 40px !important; /* Thu gọn lề */
+}
+
+/* 2. Sidebar bên trái: Tối màu, các mục nhỏ và tinh tế hơn */
+.dash-sidebar {
+  background: #0b1120 !important;
+  border-right: 1px solid rgba(255, 255, 255, 0.05) !important;
+  padding: 20px 15px !important;
+}
+
+.dash-lesson-list li {
+  background: transparent !important;
+  color: #94a3b8 !important;
+  padding: 10px 14px !important; /* Thu nhỏ độ cao của nút */
+  font-size: 0.9rem !important; /* Chữ nhỏ và sang hơn */
+  border-radius: 8px !important;
+}
+
+.dash-lesson-list li:hover {
+  background: rgba(255, 255, 255, 0.05) !important;
+}
+
+/* Nút đang chọn: Đổi sang màu xanh ngọc (Emerald) theo ảnh mẫu của bạn */
+.dash-lesson-list li.active {
+  background: rgba(16, 185, 129, 0.1) !important;
+  color: #10b981 !important;
+  box-shadow: none !important;
+}
+
+.dash-lesson-list li.active .num-circle {
+  background: #10b981 !important;
+  color: #0b1120 !important;
+}
+
+/* 3. Thẻ Checklist & Các Card: Xóa bỏ sự "to thô" */
+.checklist-card,
+.step-card,
+details.toc-box,
+.lesson-content .card {
+  background: #111827 !important; /* Nền thẻ tối, nổi bật nhẹ trên nền đen */
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  border-radius: 12px !important; /* Bo góc nhỏ lại cho sắc nét */
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3) !important;
+  padding: 0 !important; /* Reset padding để chỉnh lại cho gọn */
+}
+
+/* Add padding riêng cho các thẻ bình thường (trừ checklist) */
+.step-card,
+details.toc-box,
+.lesson-content .card {
+  padding: 18px 22px !important;
+}
+
+/* Header của Checklist mỏng và gọn hơn */
+.checklist-header-main,
+.checklist-accordion-header {
+  background: transparent !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05) !important;
+  padding: 15px 20px !important; /* Bớt độ dày */
+}
+
+/* 4. Xử lý màu chữ chống chói (Text Contrast) */
+.dash-main-title {
+  color: #f8fafc !important;
+  font-size: 1.4rem !important; /* Giảm cỡ chữ tiêu đề */
+}
+
+.checklist-card h3,
+.checklist-card h4,
+.step-title,
+details.toc-box summary {
+  color: #f8fafc !important; /* Chữ trắng sáng */
+  font-size: 1rem !important;
+}
+
+.checklist-card p,
+.accordion-sub p,
+.step-desc,
+.toc-grid {
+  color: #94a3b8 !important; /* Chữ xám nhạt, dịu mắt */
+  font-size: 0.85rem !important;
+}
+
+/* 5. Từng dòng Tick (Check-item) thu nhỏ lại */
+.check-item {
+  background: transparent !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.03) !important;
+  padding: 12px 20px !important; /* Thu gọn chiều cao dòng */
+}
+
+.check-item:hover {
+  background: rgba(255, 255, 255, 0.02) !important;
+}
+
+.check-text {
+  color: #cbd5e1 !important;
+  font-size: 0.85rem !important;
+}
+
+.check-text strong {
+  color: #f8fafc !important;
+}
+
+/* Widget Auto-scroll nhỏ gọn */
+.auto-scroll-widget {
+  background: #111827 !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  padding: 10px 15px !important;
+}
+
+.scroll-header {
+  color: #94a3b8 !important;
+}
+
+/* Xử lý ảnh trong các Step Card cho tệp màu tối */
+.step-img-container {
+  background: #0f172a !important;
+  border: 1px solid rgba(255, 255, 255, 0.05) !important;
+  padding: 10px !important;
+}
+
+/* Bảng biểu (Tables) sang Dark mode */
+.lesson-content table {
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+}
+.lesson-content th {
+  background: #1e293b !important;
+  color: #f8fafc !important;
+  padding: 12px !important;
+}
+.lesson-content td {
+  background: #111827 !important;
+  color: #cbd5e1 !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.05) !important;
+  padding: 12px !important;
+}
+.lesson-content tr:hover td {
+  background: #1e293b !important;
+}
+.rubric-item {
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.rubric-item:hover {
+  background: rgba(14, 165, 233, 0.15) !important;
+  border-color: var(--primary-color) !important;
+  transform: translateY(-2px);
 }
